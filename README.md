@@ -1,7 +1,7 @@
 # QuizApp - LZK Applikation
 
 ## Beschreibung
-Diese GUI-Anwendung wurde mit Python und der Bibliothek Tkinter erstellt und stellt eine rudimentäre Lernzielkontrolle (LZK) dar. Die Anwendung wurde als eines der ersten Projekte entwickelt, um die Grundlagen der Programmierung sowie die Erstellung grafischer Benutzeroberflächen zu erlernen.
+Diese GUI-Anwendung wurde mit Python und der Bibliothek Tkinter im Sommer 2024 erstellt und stellt eine rudimentäre Lernzielkontrolle (LZK) dar. Die Anwendung wurde als eines der ersten Projekte entwickelt, um die Grundlagen der Programmierung sowie die Erstellung grafischer Benutzeroberflächen zu erlernen.
 
 Das Programm ermöglicht es, Fragen aus einem vordefinierten Pool zufällig auszuwählen und dem Benutzer zu präsentieren. Der Benutzer kann seine Antworten auswählen und erhält daraufhin Rückmeldungen über deren Richtigkeit sowie eine abschließende Bewertung.
 
