@@ -178,10 +178,13 @@ class QuizApp:
         self.label_frage = tk.Label(root, text="")
         self.label_frage.pack()
 
+        self.frame_antworten = tk.Frame(root)
+        self.frame_antworten.pack()
+
         self.var_antwort = tk.IntVar()
         self.radio_buttons = []
         for i in range(4):
-            rb = tk.Radiobutton(root, variable=self.var_antwort, value=i + 1)
+            rb = tk.Radiobutton(self.frame_antworten, variable=self.var_antwort, value=i + 1)
             rb.pack(anchor='w')
             self.radio_buttons.append(rb)
 
@@ -203,6 +206,10 @@ class QuizApp:
             self.aktuelle_frage_index = 0
             self.label_ergebnis.config(text="")
             self.next_question()
+
+            self.label_fragen.pack_forget()
+            self.entry_fragen.pack_forget()
+            self.button_start.pack_forget()
         except ValueError:
             messagebox.showerror("Ungültige Eingabe", "Bitte geben Sie eine gültige Anzahl von Fragen ein.")
 
@@ -210,9 +217,15 @@ class QuizApp:
         if self.aktuelle_frage_index < len(self.ausgewaehlte_fragen):
             frage = self.ausgewaehlte_fragen[self.aktuelle_frage_index]
             self.label_frage.config(text=frage["frage"])
-            for i, antwort in enumerate(frage["antworten"]):
-                self.radio_buttons[i].config(text=antwort)
-            self.var_antwort.set(0)
+
+            for i, rb in enumerate(self.radio_buttons):
+                if i < len(frage["antworten"]):  
+                    rb.config(text=frage["antworten"][i], state="normal")
+                    rb.pack(anchor='w')  
+                else:  
+                    rb.pack_forget()  
+
+            self.var_antwort.set(0) 
         else:
             self.show_result()
 
@@ -220,11 +233,15 @@ class QuizApp:
         frage = self.ausgewaehlte_fragen[self.aktuelle_frage_index]
         user_antwort_index = self.var_antwort.get() - 1
 
-        if user_antwort_index >= 0 and frage["antworten"][user_antwort_index] == frage["richtige_antwort"]:
+        if user_antwort_index < 0 or user_antwort_index >= len(frage["antworten"]):
+            messagebox.showwarning("Keine Auswahl", "Bitte wählen Sie eine Antwort aus, bevor Sie fortfahren.")
+            return
+
+        if frage["antworten"][user_antwort_index] == frage["richtige_antwort"]:
             self.punkte += 5
             messagebox.showinfo("Richtige Antwort!", "Das war korrekt!")
         else:
-            messagebox.showinfo("Falsch", "Das war leider falsch.")
+            messagebox.showinfo("Falsch", f"Das war leider falsch. Die richtige Antwort war: {frage['richtige_antwort']}")
 
         self.aktuelle_frage_index += 1
         self.next_question()
@@ -249,6 +266,8 @@ class QuizApp:
         self.label_ergebnis.config(
             text=f"Ihr Punktestand: {self.punkte} von {max_punkte} möglichen Punkten.\nIhre Note: {note}")
 
+        self.button_beenden = tk.Button(self.root, text="Beenden", command=self.root.quit)
+        self.button_beenden.pack()
 
 if __name__ == "__main__":
     root = tk.Tk()
