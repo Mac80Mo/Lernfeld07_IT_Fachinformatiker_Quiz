@@ -72,6 +72,7 @@ Das Programm ermöglicht es, Fragen aus einem vordefinierten Pool zufällig ausz
 ## Weiterentwicklungsmöglichkeiten
 
 - Hinzufügen eines erweiterten Fragenpools.
+- Fragenpool durch eine externe Datei implementieren. 
 - Speichern und Laden von Spielerstatistiken.
 - Erweiterung der GUI um ein modernes Design (z. B. mit `ttk` oder `tkinter.theming`).
 - Integration von weiteren Fragetypen (z. B. offene Fragen).
